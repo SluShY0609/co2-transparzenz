@@ -69,29 +69,91 @@
 
         <section id="daten">
           <h2 class="h5">Emissionsdaten (Demo)</h2>
-          <p class="mb-0">
-            Als nächstes bauen wir hier Filter und Tabelle ein. (Im Moment ist es noch ein Platzhalter.)
+          <p class="text-muted mb-0">
+            Nutze die Filter, um die Tabelle nach Land oder Unternehmen einzugrenzen und nach verschiedenen Spalten zu sortieren.
           </p>
         </section>
 
         <hr class="my-4">
 
-        <!-- Platzhalter für Filter -->
+        <!-- FILTER -->
         <section id="filter">
-          <h2 class="h5">Filter (Platzhalter)</h2>
-          <p class="text-muted mb-0">
-            Hier kommen gleich Suchfeld, Länder-Auswahl und Sortierung hin.
-          </p>
+          <h2 class="h5">Filter</h2>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row g-3 align-items-end">
+                <div class="col-12 col-lg-4">
+                  <label for="searchCompany" class="form-label">Unternehmen suchen</label>
+                  <input id="searchCompany" class="form-control" type="text" maxlength="50" placeholder="z. B. EcoSteel">
+                </div>
+
+                <div class="col-12 col-lg-3">
+                  <label for="filterCountry" class="form-label">Land</label>
+                  <select id="filterCountry" class="form-select">
+                    <option value="">Alle Länder</option>
+                  </select>
+                </div>
+
+                <div class="col-12 col-lg-3">
+                  <label for="sortBy" class="form-label">Sortieren nach</label>
+                  <select id="sortBy" class="form-select">
+                    <option value="land">Land</option>
+                    <option value="unternehmen">Unternehmen</option>
+                    <option value="co2">CO₂ (Mt)</option>
+                    <option value="jahr">Jahr</option>
+                  </select>
+                </div>
+
+                <div class="col-12 col-lg-2 d-grid">
+                  <button id="toggleSortDir" class="btn btn-outline-primary" type="button">
+                    Aufsteigend ↑
+                  </button>
+                </div>
+
+                <div class="col-12 col-lg-2 d-grid">
+                  <button id="resetBtn" class="btn btn-outline-secondary" type="button">
+                    Zurücksetzen
+                  </button>
+                </div>
+              </div>
+
+              <p class="small text-muted mt-3 mb-0">
+                Sicherheits-Hinweis: Eingaben werden nur als Text verarbeitet (keine HTML-Ausführung).
+              </p>
+            </div>
+          </div>
         </section>
 
         <hr class="my-4">
 
-        <!-- Platzhalter für Tabelle -->
+        <!-- TABELLE -->
         <section id="tabelle">
-          <h2 class="h5">Tabelle (Platzhalter)</h2>
-          <p class="text-muted mb-0">
-            Hier kommt gleich die Tabelle mit fiktiven CO₂-Daten hin.
-          </p>
+          <h2 class="h5">Tabelle</h2>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="small text-muted" id="resultCount">0 Ergebnisse</div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Land</th>
+                      <th>Unternehmen</th>
+                      <th class="text-end">CO₂ (Mt/Jahr)</th>
+                      <th>Jahr</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <!-- Zeilen kommen aus JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </section>
 
         <hr class="my-4">
@@ -99,7 +161,7 @@
         <section id="methodik">
           <h2 class="h5">Methodik</h2>
           <p class="text-muted mb-0">
-            Hinweis: Alle Werte sind fiktiv und dienen nur zur Demonstration.
+            Hinweis: Alle Werte sind fiktiv und dienen nur zur Demonstration von UI, Filter-/Sortierfunktionen und Sicherheitsmaßnahmen.
           </p>
         </section>
       </section>
