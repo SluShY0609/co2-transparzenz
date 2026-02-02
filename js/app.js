@@ -56,13 +56,25 @@ function applyDir(isRtl) {
 }
 
 /* ---------------------------
-   Security: XSS-sicheres Rendern
-   - kein innerHTML mit User-Eingaben
-   - nur createElement + textContent
+   Security / Eingaben härten
+   - Wir führen niemals HTML aus (kein innerHTML)
+   - Wir rendern ausschließlich via createElement + textContent
+   - Zusätzlich: Eingabe-Whitelist (entfernt Sonderzeichen wie < > " ')
+---------------------------- */
+function normalizeQuery(input) {
+  // erlaubt: Buchstaben/Zahlen/Leerzeichen/Punkt/Minus, max 50 Zeichen
+  return String(input)
+    .trim()
+    .slice(0, 50)
+    .replace(/[^\p{L}\p{N}\s\.\-]/gu, "")
+    .toLowerCase();
+}
+
+/* ---------------------------
+   XSS-sicheres Rendern
 ---------------------------- */
 function renderTable(rows) {
-  // sicher leeren
-  tableBody.textContent = "";
+  tableBody.textContent = ""; // sicher leeren
 
   for (const r of rows) {
     const tr = document.createElement("tr");
@@ -101,12 +113,6 @@ function fillCountrySelect() {
   }
 }
 
-function normalizeQuery(input) {
-  // Minimale Absicherung: Länge + Trim, nur als Text weiterverarbeiten
-  // (XSS verhindern wir zusätzlich durch textContent beim Rendern)
-  return String(input).trim().slice(0, 50).toLowerCase();
-}
-
 function sortRows(rows, key, ascending) {
   const dir = ascending ? 1 : -1;
 
@@ -126,13 +132,8 @@ function applyFilters() {
 
   let rows = DATA.slice();
 
-  if (selectedCountry) {
-    rows = rows.filter(r => r.land === selectedCountry);
-  }
-
-  if (q) {
-    rows = rows.filter(r => r.unternehmen.toLowerCase().includes(q));
-  }
+  if (selectedCountry) rows = rows.filter(r => r.land === selectedCountry);
+  if (q) rows = rows.filter(r => r.unternehmen.toLowerCase().includes(q));
 
   rows = sortRows(rows, sortKey, sortAscending);
   renderTable(rows);

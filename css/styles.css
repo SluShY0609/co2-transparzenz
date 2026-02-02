@@ -1,0 +1,8 @@
+/* Kleine Ergänzungen zu Bootstrap */
+html {
+  scroll-behavior: smooth; /* angenehmes Scrollen zu #Ankern */
+}
+
+#localMenu .list-group-item {
+  cursor: pointer;
+}
